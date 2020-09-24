@@ -4,10 +4,23 @@ using UnityEngine;
 
 public class Destination : MonoBehaviour
 {
-    public bool occupied;
+    public GameObject occupant = null;
+    [System.Serializable]
     public enum DestType{
         Seat,
         Stand
     }
     public DestType type;
+
+    void OnTriggerStay(Collider col){
+        Debug.Log("Staying in trigger");
+        if(col.gameObject.GetComponent<Customer>() != null){
+            occupant = col.gameObject;
+        }
+    }
+    void OnTriggerExit(Collider col){
+        if(col.gameObject.GetComponent<Customer>() != null){
+            occupant = null;
+        }
+    }
 }
