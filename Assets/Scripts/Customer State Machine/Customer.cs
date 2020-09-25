@@ -10,15 +10,18 @@ public class Customer : MonoBehaviour
     [HideInInspector] public float stateTimeElapsed;
     [HideInInspector] public UnityEngine.AI.NavMeshAgent navMeshAgent;
 
-    public FoodItem order;
-    public FoodItem holding;
+    public Food order;
+    public Food holding;
 
     public CustomerManager customerManager;
+    
+    public GameObject speechBubble;
     
     private bool aiActive;
 
     void Awake(){
         navMeshAgent = GetComponent<UnityEngine.AI.NavMeshAgent> ();
+        speechBubble = transform.Find("Speech Bubble").gameObject;
         // order = DecideOrder();
     // }
 
@@ -71,15 +74,8 @@ public class Customer : MonoBehaviour
         stateTimeElapsed = 0;
     }
 
-//Julia's functions
-    // private FoodItem DecideOrder(){
-    //     Menu menu = GameObject.Find("Menu").GetComponent<Menu>();;
-    //     int index = Random.Range(0, menu.items.Length);
-    //     return menu.items[index];
-    // }
-
-    // public void RecieveItem(FoodItem item){
-    //     holding = item;
-    // }
+    public void RecieveItem(Food item){
+        holding = item;
+    }
 
 }

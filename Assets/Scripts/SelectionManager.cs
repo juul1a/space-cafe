@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SelectionManager : MonoBehaviour
 {
-    [SerializeField] private string selectableTag = "Selectable";
+    [SerializeField] public string selectableTag = "Selectable";
     [SerializeField] private Material highlightMaterial;
     // private Material[] defaultMaterial;
     private Transform selected;
@@ -12,6 +12,17 @@ public class SelectionManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        LookForSelect();
+        CheckInputs();
+    }
+
+    void CheckInputs(){
+        if(Input.GetMouseButtonDown(0) && selected != null){
+            selected.gameObject.GetComponent<Selectable>().DoAction();
+        }
+    }
+
+    void LookForSelect(){
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         if(Physics.Raycast(ray, out hit)){
@@ -22,20 +33,12 @@ public class SelectionManager : MonoBehaviour
             if(selection.CompareTag(selectableTag)){
                 Selectable sl = selection.GetComponent<Selectable>();
                 if(sl == null){
-                    sl = selection.transform.parent.gameObject.GetComponent<Selectable>();
+                    sl = selection.gameObject.GetComponentInParent<Selectable>();
                 }
                 if( sl != null){
                     sl.Select(highlightMaterial);
                     selected = selection;
                 }
-                // MeshRenderer selectionRenderer = selection.GetComponent<MeshRenderer>();
-                // if(selectionRenderer != null){
-                //     if(defaultMaterial == null){
-                //         defaultMaterial = selectionRenderer.materials;
-                //     }
-                //     selectionRenderer.material = highlightMaterial;
-                // }
-                
             }
             else{
                 Deselect();
@@ -45,6 +48,8 @@ public class SelectionManager : MonoBehaviour
             Deselect();
         }
     }
+
+
     void Deselect(){
         if(selected != null){
             // Renderer selectionRenderer = selected.GetComponent<Renderer>();

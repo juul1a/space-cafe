@@ -2,14 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Selectable : MonoBehaviour
+public abstract class Selectable : MonoBehaviour
 {
-    public Material[][] defaultMaterials;
+    private Material[][] defaultMaterials;
     public MeshRenderer[] mrs;
+    
+    void Awake(){
+        SetMaterials();
+    }
 
-    void Start()
-    {
-        mrs = GetComponentsInChildren<MeshRenderer>();
+    public void SetMaterials(){
+        mrs = gameObject.GetComponentsInChildren<MeshRenderer>();
+        // if(mrs.Length == 0 || mrs == null){
+        //     mrs = gameobject.GetComponentsInChildren<MeshRenderer>();
+        // }
         defaultMaterials = new Material[mrs.Length][];
         for(int i = 0; i < mrs.Length; i++){
             defaultMaterials[i] = mrs[i].materials;
@@ -30,4 +36,6 @@ public class Selectable : MonoBehaviour
             mrs[i].materials = defaultMaterials[i];
         }
     }
+
+    public abstract void DoAction ();
 }

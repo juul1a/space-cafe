@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 46a3019d59fb84a90ad8b12a25df9976, type: 3}
-  m_Name: GoingToBarState
+  m_Name: OrderingState
   m_EditorClassIdentifier: 
   actions:
-  - {fileID: 11400000, guid: c009c2a7745c0445bad68e877178cefb, type: 2}
+  - {fileID: 11400000, guid: 33db58e57d05344f48eeb36b2d9ad050, type: 2}
   transitions:
-  - decision: {fileID: 11400000, guid: e15b1e0bc0a324398b185db3c6a6b1ce, type: 2}
+  - decision: {fileID: 11400000, guid: 9904004e4bbd848e883c94fa925962fb, type: 2}
     trueState: {fileID: 0}
     falseState: {fileID: 0}
   sceneGizmoColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}

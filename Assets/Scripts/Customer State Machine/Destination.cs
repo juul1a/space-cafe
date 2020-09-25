@@ -13,7 +13,6 @@ public class Destination : MonoBehaviour
     public DestType type;
 
     void OnTriggerStay(Collider col){
-        Debug.Log("Staying in trigger");
         if(col.gameObject.GetComponent<Customer>() != null){
             occupant = col.gameObject;
         }

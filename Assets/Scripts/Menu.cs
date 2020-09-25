@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class Menu : MonoBehaviour
 {
-   public FoodItem[] items;
+    public List<Food> items;
 }
