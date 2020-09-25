@@ -27,7 +27,7 @@ public class Interactable : Selectable
     }
 
     // Update is called once per frame
-    public override void DoAction(){
+    public override void DoAction(SelectionManager sm = null){
         GameObject newFood = Instantiate(new GameObject(thisFood.name));
         newFood.AddComponent<FoodItem>();
         newFood.transform.parent = transform;

@@ -11,7 +11,7 @@ public class Customer : MonoBehaviour
     [HideInInspector] public UnityEngine.AI.NavMeshAgent navMeshAgent;
 
     public Food order;
-    public Food holding;
+    public FoodItem holding;
 
     public CustomerManager customerManager;
     
@@ -74,8 +74,12 @@ public class Customer : MonoBehaviour
         stateTimeElapsed = 0;
     }
 
-    public void RecieveItem(Food item){
+    public void RecieveItem(FoodItem item){
         holding = item;
+        Transform hand = transform.Find("Hand");
+        item.transform.parent = hand;
+        item.transform.position = hand.position;
+        item.gameObject.SetActive(true);
     }
 
 }

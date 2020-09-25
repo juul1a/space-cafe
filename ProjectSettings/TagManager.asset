@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Glow
   - Selectable
+  - Customer
   layers:
   - Default
   - TransparentFX

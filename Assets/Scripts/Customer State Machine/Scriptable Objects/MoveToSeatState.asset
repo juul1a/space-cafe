@@ -10,12 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 46a3019d59fb84a90ad8b12a25df9976, type: 3}
-  m_Name: OrderingState
+  m_Name: MoveToSeatState
   m_EditorClassIdentifier: 
-  actions:
-  - {fileID: 11400000, guid: 33db58e57d05344f48eeb36b2d9ad050, type: 2}
-  transitions:
-  - decision: {fileID: 11400000, guid: 9904004e4bbd848e883c94fa925962fb, type: 2}
-    trueState: {fileID: 11400000, guid: 8b454e205e6ce46fab940a8795f59863, type: 2}
-    falseState: {fileID: 0}
+  actions: []
+  transitions: []
   sceneGizmoColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}

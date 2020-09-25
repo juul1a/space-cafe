@@ -17,8 +17,12 @@ public class OrderAction : Action
         Menu menu = GameObject.Find("Menu").GetComponent<Menu>();;
         int index = Random.Range(0, menu.items.Count);
         controller.order = menu.items[index];
-        FoodItem foodItem = controller.speechBubble.GetComponentInChildren<FoodItem>();
-        foodItem.CreateFood(controller.order);
+
+        GameObject foodItem = Instantiate(new GameObject("Order"));
+        Transform spawnPoint = controller.speechBubble.transform.Find("SpawnPoint");
+        foodItem.transform.parent = spawnPoint;
+        foodItem.transform.position = spawnPoint.position;
+        foodItem.AddComponent<FoodItem>().CreateFood(controller.order);
         
         controller.speechBubble.SetActive(true);
     }

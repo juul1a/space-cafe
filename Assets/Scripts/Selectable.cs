@@ -37,5 +37,5 @@ public abstract class Selectable : MonoBehaviour
         }
     }
 
-    public abstract void DoAction ();
+    public abstract void DoAction (SelectionManager sm = null);
 }

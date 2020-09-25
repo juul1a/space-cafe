@@ -5,9 +5,14 @@ using UnityEngine;
 public class SelectionManager : MonoBehaviour
 {
     [SerializeField] public string selectableTag = "Selectable";
+    [SerializeField] public string customerTag = "Customer";
     [SerializeField] private Material highlightMaterial;
     // private Material[] defaultMaterial;
-    private Transform selected;
+    public Transform selected;
+    public Selectable selectableSl;
+
+
+    public GameObject holding;
 
     // Update is called once per frame
     void Update()
@@ -18,7 +23,14 @@ public class SelectionManager : MonoBehaviour
 
     void CheckInputs(){
         if(Input.GetMouseButtonDown(0) && selected != null){
-            selected.gameObject.GetComponent<Selectable>().DoAction();
+            if(selectableSl != null){
+                selectableSl.DoAction(this);
+            }
+            else if(selected.CompareTag(customerTag)){
+                if(holding.GetComponent<FoodItem>()){
+                    Give();
+                }
+            }   
         }
     }
 
@@ -31,14 +43,18 @@ public class SelectionManager : MonoBehaviour
                 Deselect();
             }
             if(selection.CompareTag(selectableTag)){
-                Selectable sl = selection.GetComponent<Selectable>();
-                if(sl == null){
-                    sl = selection.gameObject.GetComponentInParent<Selectable>();
+                selectableSl = selection.GetComponent<Selectable>();
+                if(selectableSl == null){
+                    selectableSl = selection.gameObject.GetComponentInParent<Selectable>();
                 }
-                if( sl != null){
-                    sl.Select(highlightMaterial);
+                if( selectableSl != null){
+                    selectableSl.Select(highlightMaterial);
                     selected = selection;
                 }
+            }
+            else if(selection.CompareTag(customerTag)){
+                selected = selection;
+                selectableSl = null;
             }
             else{
                 Deselect();
@@ -54,15 +70,21 @@ public class SelectionManager : MonoBehaviour
         if(selected != null){
             // Renderer selectionRenderer = selected.GetComponent<Renderer>();
             // selectionRenderer.materials = defaultMaterial;
-            // defaultMaterial = null;
-            Selectable sl = selected.GetComponent<Selectable>();
-            if(sl == null){
-                sl = selected.transform.parent.gameObject.GetComponent<Selectable>();
-            }
-            if( sl != null){
-                sl.Deselect();
+            // defaultMaterial = null;transform.parent.gameObject.GetComponent<Selectable>();
+            if( selectableSl != null){
+                selectableSl.Deselect();
                 selected = null;
+                selectableSl = null;
             }
         }
+    }
+
+    public void Grab(GameObject item){
+        holding = item;
+        item.SetActive(false);
+    }
+    public void Give(){
+        selected.gameObject.GetComponent<Customer>().RecieveItem(holding.GetComponent<FoodItem>());
+        holding = null;
     }
 }

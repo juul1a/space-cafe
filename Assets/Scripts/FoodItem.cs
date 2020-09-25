@@ -49,7 +49,10 @@ public class FoodItem : Selectable
         }
     }
 
-    public override void DoAction(){
-        //pick up
+    public override void DoAction(SelectionManager sm = null){
+        if(sm != null){
+            sm.Grab(gameObject);
+        }
+
     }
 }

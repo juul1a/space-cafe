@@ -2552,9 +2552,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 240489229}
-  - component: {fileID: 240489230}
   m_Layer: 0
-  m_Name: FoodItem
+  m_Name: SpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2574,21 +2573,6 @@ Transform:
   m_Father: {fileID: 664368376}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &240489230
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 240489228}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f517d8e44b1d94984935389ada34046c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mrs: []
-  food: {fileID: 0}
-  selectable: 1
 --- !u!64 &242491919
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -4382,7 +4366,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectableTag: Selectable
+  customerTag: Customer
   highlightMaterial: {fileID: 2100000, guid: a06165bd5ba2a4d44b534dd8d715dc41, type: 2}
+  selected: {fileID: 0}
+  selectableSl: {fileID: 0}
+  holding: {fileID: 0}
 --- !u!1001 &494992003
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18265,20 +18253,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!136 &1851847626
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1851847623}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.17
-  m_Height: 0.94
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.45, z: 0}
 --- !u!4 &1851847627 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1425268132808204102, guid: 3238f41ea235243579a99b66a713ef84,
@@ -19746,6 +19720,36 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2007766800}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2014008631
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2014008632}
+  m_Layer: 0
+  m_Name: Hand
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2014008632
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2014008631}
+  m_LocalRotation: {x: -0.5410302, y: -0, z: -0, w: 0.8410032}
+  m_LocalPosition: {x: 0.155, y: 0.33098552, z: 0.292}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1851847627}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2015234041 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 343bdcd269c0c4ca59b1f9f3020a1dca,
@@ -22055,6 +22059,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: alien_black Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 1768860755136333308, guid: 3238f41ea235243579a99b66a713ef84,
+        type: 3}
+      propertyPath: m_TagString
+      value: Customer
+      objectReference: {fileID: 0}
+    - target: {fileID: 6439037128332315449, guid: 3238f41ea235243579a99b66a713ef84,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.54103017
+      objectReference: {fileID: 0}
+    - target: {fileID: 6439037128332315449, guid: 3238f41ea235243579a99b66a713ef84,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.8410031
+      objectReference: {fileID: 0}
+    - target: {fileID: 6439037128332315449, guid: 3238f41ea235243579a99b66a713ef84,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -65.508
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3238f41ea235243579a99b66a713ef84, type: 3}
