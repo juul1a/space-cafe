@@ -8,17 +8,20 @@ public class Destination : MonoBehaviour
     [System.Serializable]
     public enum DestType{
         Seat,
-        Stand
+        Stand,
+        Exit
     }
     public DestType type;
+    public Transform seat;
+    public Transform tableSpace;
 
     void OnTriggerStay(Collider col){
-        if(col.gameObject.GetComponent<Customer>() != null){
+        if(col.gameObject.GetComponent<Customer>() != null && type == DestType.Stand){
             occupant = col.gameObject;
         }
     }
     void OnTriggerExit(Collider col){
-        if(col.gameObject.GetComponent<Customer>() != null){
+        if(col.gameObject.GetComponent<Customer>() != null && type == DestType.Stand){
             occupant = null;
         }
     }

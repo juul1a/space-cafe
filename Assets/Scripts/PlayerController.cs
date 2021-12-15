@@ -13,17 +13,26 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float sensitivity = 3f;
     [SerializeField] private float jumpForce = 20f;
     
+    public Animator anima;
     
 
     void Start(){
         rb = gameObject.GetComponent<Rigidbody>();
         head = gameObject.GetComponentInChildren<Camera>().transform.parent.gameObject;
+        anima = gameObject.GetComponent<Animator>();
     }
 
     void Update(){
         //Calculate player speed as Vector3
         float xMov = Input.GetAxisRaw("Horizontal");
         float zMov = Input.GetAxisRaw("Vertical");
+
+        if(xMov > 0f || zMov > 0f){
+            anima.SetBool("Walking", true);
+        }
+        else{
+            anima.SetBool("Walking", false);
+        }
 
         Vector3 moveHorizontal = transform.right * xMov; //transform.right = local Vector3(1,0,0)
         Vector3 moveVertical = transform.forward * zMov; //transform.forward = local Vector3(0,0,1)

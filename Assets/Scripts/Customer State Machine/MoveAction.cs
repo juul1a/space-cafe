@@ -6,21 +6,29 @@ using UnityEngine;
 public class MoveAction : Action
 {
     public Destination.DestType destinationType;
-    private Destination moveTo;
 
     public override void Act(Customer controller)
     {
-        Walk (controller);
+        
+            Debug.Log("Walking");
+            Walk (controller);
     }
 
     private void Walk(Customer controller)
     {
-        if(moveTo == null || (moveTo.occupant != null && moveTo.occupant != controller.gameObject)){
+        if(!controller.anima.GetBool("Walking"));
+        {
+            controller.anima.SetBool("Walking", true);
+        }
+        if(controller.moveTo == null || (controller.moveTo.occupant != null && controller.moveTo.occupant != controller.gameObject)){
             List<Destination> destinations = controller.customerManager.GetDestinations(destinationType);
             int index = Random.Range (0, destinations.Count);
-            moveTo = destinations[index].GetComponent<Destination>();
+            controller.moveTo = destinations[index].GetComponent<Destination>();
+            if(destinationType == Destination.DestType.Seat){
+                controller.seat = controller.moveTo;
+            }
         }
-        controller.navMeshAgent.destination = moveTo.transform.position;
+        controller.navMeshAgent.destination = controller.moveTo.transform.position;
         controller.navMeshAgent.Resume ();
     }
 }

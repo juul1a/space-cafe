@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5e816322663f41b889fe8922d71ea78, type: 3}
+  m_Name: Gingerbread
+  m_EditorClassIdentifier: 
+  itemPrefab: {fileID: 5121482788062482371, guid: c17713ca92ab547508f7cef337bcf3da,
+    type: 3}
+  edible: 1
+  eatTime: 15

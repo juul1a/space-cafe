@@ -6,13 +6,21 @@ public class SelectionManager : MonoBehaviour
 {
     [SerializeField] public string selectableTag = "Selectable";
     [SerializeField] public string customerTag = "Customer";
+    [SerializeField] public string tableSpaceTag = "TableSpace";
     [SerializeField] private Material highlightMaterial;
     // private Material[] defaultMaterial;
     public Transform selected;
     public Selectable selectableSl;
 
-
     public GameObject holding;
+
+    private PlayerController pc;
+
+    private RaycastHit hit;
+
+    void Awake(){
+        pc = gameObject.GetComponent<PlayerController>();
+    }
 
     // Update is called once per frame
     void Update()
@@ -27,36 +35,37 @@ public class SelectionManager : MonoBehaviour
                 selectableSl.DoAction(this);
             }
             else if(selected.CompareTag(customerTag)){
-                if(holding.GetComponent<FoodItem>()){
+                if(holding != null){
                     Give();
                 }
             }   
+        }
+        if(Input.GetMouseButtonDown(1) && holding != null){ //&& selected.CompareTag(tableSpaceTag)
+           PutDown();
         }
     }
 
     void LookForSelect(){
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
         if(Physics.Raycast(ray, out hit)){
             Transform selection = hit.transform;
             if(selection != selected){
                 Deselect();
             }
-            if(selection.CompareTag(selectableTag)){
-                selectableSl = selection.GetComponent<Selectable>();
+            selected = selection;
+            //selectable highlights yellow
+            if(selected.CompareTag(selectableTag)){
+                selectableSl = selected.GetComponent<Selectable>();
                 if(selectableSl == null){
-                    selectableSl = selection.gameObject.GetComponentInParent<Selectable>();
+                    selectableSl = selected.gameObject.GetComponentInParent<Selectable>();
                 }
                 if( selectableSl != null){
+                    Debug.Log("Selecginting");
                     selectableSl.Select(highlightMaterial);
-                    selected = selection;
                 }
             }
-            else if(selection.CompareTag(customerTag)){
-                selected = selection;
-                selectableSl = null;
-            }
             else{
+                selectableSl = null;
                 Deselect();
             }
         }
@@ -80,11 +89,46 @@ public class SelectionManager : MonoBehaviour
     }
 
     public void Grab(GameObject item){
+        // if(holding != null){
+        //     //"put the item back" even tho it never actually moved heh
+        //    PutDown();
+        // }
         holding = item;
-        item.SetActive(false);
+        //Dish dish = item.GetComponent<Dish>();
+        FoodItem foodItem = holding.GetComponent<FoodItem>();
+        if(foodItem != null && foodItem.dish != null){
+            //grabbing the foood item
+            foodItem.dish.DeNest(item);
+            foodItem.dish = null;
+        }
+        Transform hand = transform.Find("Hand");
+        item.transform.parent = hand;
+        item.transform.position = hand.position;
+        pc.anima.SetBool("Holding", true);
+    }
+
+    public void PutDown(){
+        if(holding != null){
+            holding.transform.parent = null;
+            holding.transform.position = hit.point;//spot.transform.Find("CounterSpace1").position;
+            holding.SetActive(true);
+            Dish dish = selected.GetComponent<Dish>();
+            FoodItem foodItem = holding.GetComponent<FoodItem>();
+            if(dish != null){
+                dish.Nest(holding);
+                if(foodItem != null){
+                    foodItem.dish = dish;
+                }
+            }
+            holding = null;
+
+            pc.anima.SetBool("Holding", false);
+        }
     }
     public void Give(){
-        selected.gameObject.GetComponent<Customer>().RecieveItem(holding.GetComponent<FoodItem>());
-        holding = null;
+        if(selected.gameObject.GetComponent<Customer>().RecieveItem(holding)){
+            holding = null;
+            pc.anima.SetBool("Holding", false);
+        }
     }
 }

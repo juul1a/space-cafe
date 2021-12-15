@@ -11,17 +11,27 @@ public class Customer : MonoBehaviour
     [HideInInspector] public UnityEngine.AI.NavMeshAgent navMeshAgent;
 
     public Food order;
-    public FoodItem holding;
+    public GameObject holding;
+    public FoodItem holdingFood;
 
     public CustomerManager customerManager;
     
     public GameObject speechBubble;
+    public Destination moveTo;
+    public Destination seat;
+    public bool sitting = false;
+
+    public float waitTime = 0f;
+
+    public Animator anima;
     
     private bool aiActive;
 
     void Awake(){
+        customerManager = GameObject.Find("CustomerManager").GetComponent<CustomerManager>();
         navMeshAgent = GetComponent<UnityEngine.AI.NavMeshAgent> ();
         speechBubble = transform.Find("Speech Bubble").gameObject;
+        anima = GetComponent<Animator>();
         // order = DecideOrder();
     // }
 
@@ -74,12 +84,28 @@ public class Customer : MonoBehaviour
         stateTimeElapsed = 0;
     }
 
-    public void RecieveItem(FoodItem item){
-        holding = item;
-        Transform hand = transform.Find("Hand");
-        item.transform.parent = hand;
-        item.transform.position = hand.position;
-        item.gameObject.SetActive(true);
+    public bool RecieveItem(GameObject item){
+        FoodItem food = item.GetComponent<FoodItem>();
+        if(food == null){
+            food = item.GetComponent<Dish>().food;
+        }
+        if(food.food == order){
+            holding = item;
+            holdingFood = food;
+            anima.SetBool("Holding", true);
+            Transform hand = transform.Find("Hand");
+            item.transform.parent = hand;
+            item.transform.position = hand.position;
+            item.gameObject.SetActive(true);
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public void PlaceItem(){
+
     }
 
 }

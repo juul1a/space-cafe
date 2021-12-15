@@ -4,8 +4,8 @@ using UnityEngine;
 using UnityEditor;
 using UnityEditorInternal;
 
- [CustomEditor(typeof(Interactable))]
- public class InteractableEditor : Editor
+ [CustomEditor(typeof(FoodSpawn))]
+ public class FoodspawnEditor : Editor
  {
     int _choiceIndex;
  
@@ -13,7 +13,7 @@ using UnityEditorInternal;
    {
         // Draw the default inspector
         DrawDefaultInspector();
-        Interactable interactable = target as Interactable;
+        FoodSpawn interactable = target as FoodSpawn;
         _choiceIndex = interactable.menu.items.IndexOf(interactable.thisFood);
         string[] menuItems = new string[interactable.menu.items.Count];
         for(int i = 0; i<menuItems.Length; i++){

@@ -22,7 +22,9 @@ public class OrderAction : Action
         Transform spawnPoint = controller.speechBubble.transform.Find("SpawnPoint");
         foodItem.transform.parent = spawnPoint;
         foodItem.transform.position = spawnPoint.position;
-        foodItem.AddComponent<FoodItem>().CreateFood(controller.order);
+        FoodItem food = foodItem.AddComponent<FoodItem>();
+        food.spawnCenter = true;
+        food.CreateFood(controller.order);
         
         controller.speechBubble.SetActive(true);
     }

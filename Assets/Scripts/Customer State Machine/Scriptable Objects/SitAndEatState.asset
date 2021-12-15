@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46a3019d59fb84a90ad8b12a25df9976, type: 3}
+  m_Name: SitAndEatState
+  m_EditorClassIdentifier: 
+  actions:
+  - {fileID: 11400000, guid: e3191b4f5fc47427d961d789721fbcde, type: 2}
+  transitions:
+  - decision: {fileID: 11400000, guid: 04de94083156c48d39baa10f1bb0a133, type: 2}
+    trueState: {fileID: 11400000, guid: 6c9bf768447c640de8039978c5f71b56, type: 2}
+    falseState: {fileID: 0}
+  sceneGizmoColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}

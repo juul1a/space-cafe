@@ -6,12 +6,7 @@ using UnityEngine;
 public class Food : ScriptableObject
 {
     public GameObject itemPrefab;
-    public List<Transform> edible;
-
-    void Awake(){
-        foreach (Transform child in itemPrefab.transform){
-            if (child.tag == "Edible")
-                edible.Add(child);
-        }
-    }
+    public bool edible;
+    public float eatTime = 15f;
+    
 }
